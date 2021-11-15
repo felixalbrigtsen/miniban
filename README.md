@@ -1,6 +1,7 @@
 # miniban
 Small ip-banning utility for DCST1001
-Find the full description in [project-miniban.pdf](this pdf).
+Find the full description in [this pdf](project-miniban.pdf).
+You can find the original fail2ban [here](https://www.fail2ban.org/wiki/index.php/Main_Page).
 
 ## Summary
 miniban - a lightweight version of fail2ban
