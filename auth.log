@@ -1,0 +1,194 @@
+Nov 23 10:18:58 miniban systemd-logind[80]: New seat seat0.
+Nov 23 10:30:26 miniban login[171]: pam_unix(login:session): session opened for user root by LOGIN(uid=0)
+Nov 23 10:30:26 miniban login[171]: pam_systemd(login:session): Failed to create session: Seat has no VTs but VT number not 0
+Nov 23 10:30:26 miniban login[342]: ROOT LOGIN  on '/dev/tty1'
+Nov 23 10:35:06 miniban sshd[404]: Server listening on 0.0.0.0 port 22.
+Nov 23 10:35:06 miniban sshd[404]: Server listening on :: port 22.
+Nov 23 10:35:08 miniban sshd[404]: Received signal 15; terminating.
+Nov 23 10:35:08 miniban sshd[408]: Server listening on 0.0.0.0 port 22.
+Nov 23 10:35:08 miniban sshd[408]: Server listening on :: port 22.
+Nov 23 10:35:39 miniban sshd[410]: Accepted password for root from ::1 port 47572 ssh2
+Nov 23 10:35:39 miniban sshd[410]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Nov 23 10:35:39 miniban systemd-logind[80]: New session 1418 of user root.
+Nov 23 10:35:39 miniban systemd: pam_unix(systemd-user:session): session opened for user root by (uid=0)
+Nov 23 10:35:40 miniban sshd[410]: Received disconnect from ::1 port 47572:11: disconnected by user
+Nov 23 10:35:40 miniban sshd[410]: Disconnected from user root ::1 port 47572
+Nov 23 10:35:40 miniban sshd[410]: pam_unix(sshd:session): session closed for user root
+Nov 23 10:35:40 miniban systemd-logind[80]: Session 1418 logged out. Waiting for processes to exit.
+Nov 23 10:35:40 miniban systemd-logind[80]: Removed session 1418.
+Nov 23 10:35:50 miniban systemd: pam_unix(systemd-user:session): session closed for user root
+Nov 23 10:37:00 miniban sshd[427]: Accepted password for root from 129.241.210.179 port 53772 ssh2
+Nov 23 10:37:00 miniban sshd[427]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Nov 23 10:37:00 miniban systemd-logind[80]: New session 1420 of user root.
+Nov 23 10:37:00 miniban systemd: pam_unix(systemd-user:session): session opened for user root by (uid=0)
+Nov 23 10:37:02 miniban sshd[427]: Received disconnect from 129.241.210.179 port 53772:11: disconnected by user
+Nov 23 10:37:02 miniban sshd[427]: Disconnected from user root 129.241.210.179 port 53772
+Nov 23 10:37:02 miniban sshd[427]: pam_unix(sshd:session): session closed for user root
+Nov 23 10:37:02 miniban systemd-logind[80]: Session 1420 logged out. Waiting for processes to exit.
+Nov 23 10:37:02 miniban systemd-logind[80]: Removed session 1420.
+Nov 23 10:37:13 miniban systemd: pam_unix(systemd-user:session): session closed for user root
+Nov 23 10:37:13 miniban sshd[454]: Accepted password for root from 129.241.210.138 port 57758 ssh2
+Nov 23 10:37:13 miniban sshd[454]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Nov 23 10:37:13 miniban systemd-logind[80]: New session 1422 of user root.
+Nov 23 10:37:13 miniban systemd: pam_unix(systemd-user:session): session opened for user root by (uid=0)
+Nov 23 10:37:54 miniban sshd[470]: Accepted password for root from 10.22.18.3 port 52353 ssh2
+Nov 23 10:37:54 miniban sshd[470]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Nov 23 10:37:54 miniban systemd-logind[80]: New session 1424 of user root.
+Nov 23 10:40:45 miniban sshd[1343]: Did not receive identification string from 195.133.18.210 port 57910
+Nov 23 10:41:07 miniban sshd[1344]: Invalid user user from 195.133.18.210 port 38336
+Nov 23 10:41:07 miniban sshd[1344]: pam_unix(sshd:auth): check pass; user unknown
+Nov 23 10:41:07 miniban sshd[1344]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=195.133.18.210 
+Nov 23 10:41:09 miniban sshd[1344]: Failed password for invalid user user from 195.133.18.210 port 38336 ssh2
+Nov 23 10:41:10 miniban sshd[1344]: Received disconnect from 195.133.18.210 port 38336:11: Normal Shutdown, Thank you for playing [preauth]
+Nov 23 10:41:10 miniban sshd[1344]: Disconnected from invalid user user 195.133.18.210 port 38336 [preauth]
+Nov 23 10:41:41 miniban sshd[1356]: Accepted password for root from 129.241.210.179 port 53944 ssh2
+Nov 23 10:41:41 miniban sshd[1356]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Nov 23 10:41:41 miniban systemd-logind[80]: New session 1425 of user root.
+Nov 23 10:41:42 miniban sshd[1356]: Received disconnect from 129.241.210.179 port 53944:11: disconnected by user
+Nov 23 10:41:42 miniban sshd[1356]: Disconnected from user root 129.241.210.179 port 53944
+Nov 23 10:41:42 miniban sshd[1356]: pam_unix(sshd:session): session closed for user root
+Nov 23 10:41:42 miniban systemd-logind[80]: Session 1425 logged out. Waiting for processes to exit.
+Nov 23 10:41:42 miniban systemd-logind[80]: Removed session 1425.
+Nov 23 10:41:53 miniban sshd[1364]: Invalid user user from 195.133.18.210 port 40856
+Nov 23 10:41:53 miniban sshd[1364]: pam_unix(sshd:auth): check pass; user unknown
+Nov 23 10:41:53 miniban sshd[1364]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=195.133.18.210 
+Nov 23 10:41:56 miniban sshd[1364]: Failed password for invalid user user from 195.133.18.210 port 40856 ssh2
+Nov 23 10:41:58 miniban sshd[1364]: Received disconnect from 195.133.18.210 port 40856:11: Normal Shutdown, Thank you for playing [preauth]
+Nov 23 10:41:58 miniban sshd[1364]: Disconnected from invalid user user 195.133.18.210 port 40856 [preauth]
+Nov 23 10:51:22 miniban sshd[3114]: Accepted password for root from 129.241.210.179 port 54580 ssh2
+Nov 23 10:51:22 miniban sshd[3114]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Nov 23 10:51:22 miniban systemd-logind[80]: New session 1426 of user root.
+Nov 23 11:03:27 miniban sshd[408]: Received signal 15; terminating.
+Nov 23 11:03:27 miniban sshd[17295]: Server listening on 0.0.0.0 port 22.
+Nov 23 11:03:27 miniban sshd[17295]: Server listening on :: port 22.
+Nov 23 11:04:01 miniban CRON[17374]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 23 11:04:01 miniban CRON[17374]: pam_unix(cron:session): session closed for user root
+Nov 23 11:07:28 miniban sshd[19204]: Accepted password for root from 129.241.210.201 port 57652 ssh2
+Nov 23 11:07:28 miniban sshd[19204]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 11:07:28 miniban systemd-logind[80]: New session 1428 of user root.
+Nov 23 11:07:48 miniban sshd[3114]: Received disconnect from 129.241.210.179 port 54580:11: disconnected by user
+Nov 23 11:07:48 miniban sshd[3114]: Disconnected from user root 129.241.210.179 port 54580
+Nov 23 11:07:48 miniban sshd[3114]: pam_unix(sshd:session): session closed for user root
+Nov 23 11:07:48 miniban systemd-logind[80]: Session 1426 logged out. Waiting for processes to exit.
+Nov 23 11:07:48 miniban systemd-logind[80]: Removed session 1426.
+Nov 23 11:08:13 miniban sshd[19571]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:08:15 miniban sshd[19571]: Failed password for root from 129.241.210.157 port 48988 ssh2
+Nov 23 11:08:22 miniban sshd[19571]: Failed password for root from 129.241.210.157 port 48988 ssh2
+Nov 23 11:08:26 miniban sshd[19571]: Failed password for root from 129.241.210.157 port 48988 ssh2
+Nov 23 11:08:28 miniban sshd[19571]: Connection closed by authenticating user root 129.241.210.157 port 48988 [preauth]
+Nov 23 11:08:28 miniban sshd[19571]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:08:30 miniban sshd[19679]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:08:32 miniban sshd[19679]: Failed password for root from 129.241.210.157 port 48998 ssh2
+Nov 23 11:08:35 miniban sshd[19679]: Failed password for root from 129.241.210.157 port 48998 ssh2
+Nov 23 11:08:40 miniban sshd[19679]: Failed password for root from 129.241.210.157 port 48998 ssh2
+Nov 23 11:08:42 miniban sshd[19679]: Connection closed by authenticating user root 129.241.210.157 port 48998 [preauth]
+Nov 23 11:08:42 miniban sshd[19679]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:09:52 miniban sshd[20650]: Accepted password for root from 129.241.210.179 port 56646 ssh2
+Nov 23 11:09:52 miniban sshd[20650]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 11:09:52 miniban systemd-logind[80]: New session 1430 of user root.
+Nov 23 11:11:12 miniban sshd[22781]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 11:11:12 miniban sshd[22781]: Connection closed by 195.133.18.210 port 56306
+Nov 23 11:11:37 miniban sshd[22927]: Unable to negotiate with 195.133.18.210 port 38670: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 11:12:23 miniban sshd[23719]: Unable to negotiate with 195.133.18.210 port 40970: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 11:19:41 miniban sshd[40739]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:19:43 miniban sshd[40739]: Failed password for root from 129.241.210.157 port 49264 ssh2
+Nov 23 11:19:49 miniban sshd[40739]: Failed password for root from 129.241.210.157 port 49264 ssh2
+Nov 23 11:19:51 miniban sshd[40739]: Connection closed by authenticating user root 129.241.210.157 port 49264 [preauth]
+Nov 23 11:19:51 miniban sshd[40739]: PAM 1 more authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:21:35 miniban sshd[40751]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 11:21:35 miniban sshd[40751]: Connection closed by 205.185.114.87 port 38774
+Nov 23 11:22:43 miniban sshd[40761]: Unable to negotiate with 205.185.114.87 port 46868: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 11:22:52 miniban sshd[40765]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:22:54 miniban sshd[40765]: Failed password for root from 129.241.210.157 port 49338 ssh2
+Nov 23 11:22:59 miniban sshd[40765]: Failed password for root from 129.241.210.157 port 49338 ssh2
+Nov 23 11:23:04 miniban sshd[40765]: Failed password for root from 129.241.210.157 port 49338 ssh2
+Nov 23 11:23:04 miniban sshd[40765]: Connection closed by authenticating user root 129.241.210.157 port 49338 [preauth]
+Nov 23 11:23:04 miniban sshd[40765]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.157  user=root
+Nov 23 11:27:25 miniban sshd[19204]: Received disconnect from 129.241.210.201 port 57652:11: disconnected by user
+Nov 23 11:27:25 miniban sshd[19204]: Disconnected from user root 129.241.210.201 port 57652
+Nov 23 11:27:25 miniban sshd[19204]: pam_unix(sshd:session): session closed for user root
+Nov 23 11:27:25 miniban systemd-logind[80]: Session 1428 logged out. Waiting for processes to exit.
+Nov 23 11:27:25 miniban systemd-logind[80]: Removed session 1428.
+Nov 23 11:42:03 miniban sshd[41141]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 11:42:03 miniban sshd[41141]: Connection closed by 199.19.224.231 port 36642
+Nov 23 11:42:32 miniban sshd[41142]: Unable to negotiate with 199.19.224.231 port 47578: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 11:49:06 miniban sshd[41175]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 11:49:06 miniban sshd[41175]: Connection closed by 23.183.81.249 port 38946
+Nov 23 11:49:21 miniban sshd[41177]: Unable to negotiate with 23.183.81.249 port 42830: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 11:50:52 miniban sshd[41190]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 11:50:52 miniban sshd[41190]: Connection closed by 104.248.203.112 port 58090
+Nov 23 11:53:22 miniban sshd[41201]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=104.248.203.112  user=root
+Nov 23 11:53:25 miniban sshd[41201]: Failed password for root from 104.248.203.112 port 39300 ssh2
+Nov 23 11:53:27 miniban sshd[41201]: Connection closed by authenticating user root 104.248.203.112 port 39300 [preauth]
+Nov 23 11:55:22 miniban sshd[41213]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=104.248.203.112  user=root
+Nov 23 11:55:25 miniban sshd[41213]: Failed password for root from 104.248.203.112 port 49092 ssh2
+Nov 23 11:55:26 miniban sshd[41213]: Connection closed by authenticating user root 104.248.203.112 port 49092 [preauth]
+Nov 23 11:56:22 miniban sshd[41216]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=104.248.203.112  user=root
+Nov 23 11:56:24 miniban sshd[41216]: Failed password for root from 104.248.203.112 port 52324 ssh2
+Nov 23 11:56:24 miniban sshd[41216]: Connection closed by authenticating user root 104.248.203.112 port 52324 [preauth]
+Nov 23 11:57:22 miniban sshd[41228]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=104.248.203.112  user=root
+Nov 23 11:57:24 miniban sshd[41228]: Failed password for root from 104.248.203.112 port 55092 ssh2
+Nov 23 11:57:26 miniban sshd[41228]: Connection closed by authenticating user root 104.248.203.112 port 55092 [preauth]
+Nov 23 11:58:21 miniban sshd[41240]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=104.248.203.112  user=root
+Nov 23 11:58:24 miniban sshd[41240]: Failed password for root from 104.248.203.112 port 58934 ssh2
+Nov 23 11:58:26 miniban sshd[41240]: Connection closed by authenticating user root 104.248.203.112 port 58934 [preauth]
+Nov 23 11:59:02 miniban sshd[41242]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 11:59:02 miniban sshd[41242]: Connection closed by 205.185.114.87 port 43442
+Nov 23 11:59:14 miniban sshd[41243]: Unable to negotiate with 205.185.114.87 port 42512: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 11:59:21 miniban sshd[41245]: Invalid user mos from 104.248.203.112 port 34910
+Nov 23 11:59:21 miniban sshd[41245]: pam_unix(sshd:auth): check pass; user unknown
+Nov 23 11:59:21 miniban sshd[41245]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=104.248.203.112 
+Nov 23 11:59:24 miniban sshd[41245]: Failed password for invalid user mos from 104.248.203.112 port 34910 ssh2
+Nov 23 11:59:26 miniban sshd[41245]: Connection closed by invalid user mos 104.248.203.112 port 34910 [preauth]
+Nov 23 12:04:01 miniban CRON[41268]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 12:04:01 miniban CRON[41268]: pam_unix(cron:session): session closed for user root
+Nov 23 12:10:33 miniban sshd[41292]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 12:10:33 miniban sshd[41292]: Connection closed by 141.98.10.246 port 42222
+Nov 23 12:10:42 miniban sshd[41303]: Unable to negotiate with 141.98.10.246 port 50960: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:10:51 miniban sshd[41305]: Unable to negotiate with 141.98.10.246 port 35384: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:11:00 miniban sshd[41307]: Unable to negotiate with 141.98.10.246 port 48026: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:11:09 miniban sshd[41309]: Unable to negotiate with 141.98.10.246 port 60676: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:11:18 miniban sshd[41311]: Unable to negotiate with 141.98.10.246 port 45092: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:11:28 miniban sshd[41313]: Unable to negotiate with 141.98.10.246 port 57740: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:11:31 miniban sshd[17295]: Received signal 15; terminating.
+Nov 23 12:11:31 miniban sshd[41433]: Server listening on 0.0.0.0 port 22.
+Nov 23 12:11:31 miniban sshd[41433]: Server listening on :: port 22.
+Nov 23 12:11:37 miniban sshd[41555]: Unable to negotiate with 141.98.10.246 port 42156: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:11:47 miniban sshd[42431]: Unable to negotiate with 141.98.10.246 port 54794: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:11:57 miniban sshd[42436]: Unable to negotiate with 141.98.10.246 port 39218: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:12:07 miniban sshd[42438]: Unable to negotiate with 141.98.10.246 port 51866: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:12:17 miniban sshd[42440]: Unable to negotiate with 141.98.10.246 port 36286: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:12:27 miniban sshd[42442]: Unable to negotiate with 141.98.10.246 port 48936: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:12:37 miniban sshd[42454]: Unable to negotiate with 141.98.10.246 port 33354: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:12:47 miniban sshd[42456]: Unable to negotiate with 141.98.10.246 port 46004: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:12:57 miniban sshd[42458]: Unable to negotiate with 141.98.10.246 port 58654: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:13:07 miniban sshd[42460]: Unable to negotiate with 141.98.10.246 port 43072: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:13:18 miniban sshd[42462]: Unable to negotiate with 141.98.10.246 port 55720: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:13:28 miniban sshd[42464]: Unable to negotiate with 141.98.10.246 port 40138: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:13:38 miniban sshd[42466]: Unable to negotiate with 141.98.10.246 port 52788: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:13:48 miniban sshd[42468]: Unable to negotiate with 141.98.10.246 port 37206: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:13:59 miniban sshd[42470]: Unable to negotiate with 141.98.10.246 port 49856: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:14:09 miniban sshd[42472]: Unable to negotiate with 141.98.10.246 port 34274: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:41:38 miniban sshd[42625]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 12:41:38 miniban sshd[42625]: Connection closed by 205.185.114.87 port 60242
+Nov 23 12:41:54 miniban sshd[42636]: Unable to negotiate with 205.185.114.87 port 39378: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 12:42:06 miniban sshd[42638]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 12:42:06 miniban sshd[42638]: Connection closed by 205.185.119.112 port 40518
+Nov 23 12:42:33 miniban sshd[42639]: Unable to negotiate with 205.185.119.112 port 38442: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 13:04:01 miniban CRON[42746]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:04:01 miniban CRON[42746]: pam_unix(cron:session): session closed for user root
+Nov 23 13:15:55 miniban sshd[42826]: error: kex_exchange_identification: Connection closed by remote host
+Nov 23 13:15:55 miniban sshd[42826]: Connection closed by 205.185.119.112 port 53874
+Nov 23 13:16:22 miniban sshd[42827]: Unable to negotiate with 205.185.119.112 port 41340: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]
+Nov 23 13:29:21 miniban sshd[43366]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.179  user=root
+Nov 23 13:29:23 miniban sshd[43366]: Failed password for root from 129.241.210.179 port 42270 ssh2
+Nov 23 13:29:26 miniban sshd[43366]: Failed password for root from 129.241.210.179 port 42270 ssh2
+Nov 23 13:29:30 miniban sshd[43366]: Failed password for root from 129.241.210.179 port 42270 ssh2
+Nov 23 13:29:32 miniban sshd[43366]: Connection closed by authenticating user root 129.241.210.179 port 42270 [preauth]
+Nov 23 13:29:32 miniban sshd[43366]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.179  user=root
+Nov 23 13:35:31 miniban sshd[43405]: Connection closed by 66.240.236.116 port 58554 [preauth]
+Nov 23 13:41:21 miniban sshd[43460]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=129.241.210.201  user=root
+Nov 23 13:41:23 miniban sshd[43460]: Failed password for root from 129.241.210.201 port 57660 ssh2
+Nov 23 13:41:26 miniban sshd[43460]: Accepted password for root from 129.241.210.201 port 57660 ssh2
+Nov 23 13:41:26 miniban sshd[43460]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:41:26 miniban systemd-logind[80]: New session 1440 of user root.
