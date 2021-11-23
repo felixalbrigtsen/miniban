@@ -7,32 +7,12 @@
 #Filenames of helper scripts
 BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
-#LOGFILE="/var/log/auth.log"
-LOGFILE="auth.log"
+LOGFILE="/var/log/auth.log"
+#LOGFILE="auth.log"
 
 INTERVAL=60 #Number of seconds between every unban test
 GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
 
-#Listen for failed attempts in ssh access logs
-# FAILLOGS= $(journalctl -u sshd | grep "authentication failure;")
-    # Example:
-    # Nov 16 15:33:04 demiurgen sshd[3067909]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=222.187.254.41  user=root
-    # Nov 16 15:33:15 demiurgen sshd[3067909]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=222.187.254.41  user=root
-    # Nov 16 15:33:17 demiurgen sshd[3068040]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=222.187.254.41  user=root
-    # Nov 16 15:33:26 demiurgen sshd[3068040]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=222.187.254.41  user=root
-
-#Increment and check fail counter
-
-# - Lag ny tom dict
-# - Spol gjennom loggen, hopp frem til nå minus 10 min
-# - Stepp gjennom hver linje
-#     sjekk ip og status
-#         fail -> += 1
-#         success -> =0
-#     Oppdater dict[ip]
-# - For hver ip i dict
-#     hvis -gt 3
-#         ./ban.sh ip
 
 #Check if ip in whitelist
 
@@ -42,20 +22,24 @@ GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
 #Run unban.sh periodically
 #watch -n $INTERVAL unbanCheck()
 
-#   (TODO: Reset attempts counter)
-
-
 function banCheck() {
     currentTime=$( date +%s )
     banTime=$(( $currentTime - $GRACEPERIOD ))
     
     #Associative array / key-value pair. Key=ip addr, value=number of occurances
     declare -A IPLOG
+    #Step through the logfile from start to end
     while read line; do
+		#Successful logins, reset the counter
+		if [[ "$line" == *"pam_unix(sshd:session): session opened"* ]] ; then
+			#Set the ip's counter to 0. Does not fail even if the value is not already initialized
+         	IPLOG[$ip]=0
+		fi
+    	#Authentication failure, increment the counter
         if [[ "$line" == *"authentication failure"* ]]; then
             #The first 15 chars have the format of "Jan 01 00:00:00", parse them to unix time
-            timestring = $( echo "$line" | cut -c0-15 )
-            timestamp = $( date --date "$timestring" +%s )
+            timestring=$(echo "$line" | cut -c1-16)  
+            timestamp=$( date --date "$timestring" +%s )
             if [[ $timestamp -lt $banTime ]]; then
                 #This entry is older than the ban period, skip it
                 continue
@@ -98,12 +82,17 @@ function banCheck() {
                 ((IPLOG[$ip] += 2))
             fi
 
-            ###TODO, run ban.sh
         fi
     done < $LOGFILE
 
     #Display table
-    for ip in "${!IPLOG[@]}"; do echo "$ip - ${IPLOG[$ip]}"; done;
+    for ip in "${!IPLOG[@]}"; do 
+    	echo "$ip - ${IPLOG[$ip]}" 
+		if [[ IPLOG[$ip] -ge 3 ]] ; then
+			echo "$ip should be banned!"
+			   ###TODO, run ban.sh	
+		fi
+    done;
 }
 
 banCheck
@@ -112,42 +101,19 @@ banCheck
 
 #Periodically check banned IPs in miniban.db and remove them if the ban has 
 #expired (10 minutes). Remove the iptables rule for the IP address
-# BANFILE="miniban.db"
-
-# lastTimeStamp=0
 
 function unbanCheck() {
-    unbanTime=$( date +%s ) - $GRACEPERIOD
+    unbanTime=$(( $( date +%s ) - $GRACEPERIOD ))
     
-     #     while read line; do
-    #         if [[ "$line" == "$ip"* ]]; then
-    #             lineArray=(${line//,/})
-    #             lastTimeStamp=${lineArray[1]}
-    #         fi
-    #     done < "$BANFILE"
-
-    #     echo $lastTimeStamp
-
-
-    #iptables -D INPUT -s $ip -j REJECT
-    
-    # echo "$ip was unbanned"
-
     while read line; do 
+    	#Split line on the comma, ip is the first part, the rest is the timestamp
         lineArray=(${line//,/})
         ip=${lineArray[0]}
         timeStamp=${lineArray[1]}
 
+		# If the specified IP has been banned since before unbanTime, unban it
         if [[ $timeStamp -le $unbanTime ]]; then
             unban.sh $ip
         fi
     done < "$BANFILE"
-
-    #For each line in miniban.db
-    #If timestamp <= now - limit
-    #   Remove from miniban.db
-    #   Remove from iptables
-
-
-
 }
