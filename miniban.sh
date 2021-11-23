@@ -30,20 +30,26 @@ function banCheck() {
     declare -A IPLOG
     #Step through the logfile from start to end
     while read line; do
+    
+    	#The first 15 chars have the format of "Jan 01 00:00:00", parse them to unix time
+        timestring=$(echo "$line" | cut -c1-16)  
+        timestamp=$( date --date "$timestring" +%s )
+        if [[ $timestamp -lt $banTime ]]; then
+            #This entry is older than the ban period, skip it
+            continue
+        fi
+        
 		#Successful logins, reset the counter
-		if [[ "$line" == *"pam_unix(sshd:session): session opened"* ]] ; then
+		if [[ "$line" == *"Accepted password"* ]] ; then
+			#Line looks like: "Nov 23 15:39:04 miniban sshd[44135]: Accepted password for root from 10.24.3.54 port 53514 ssh2"
+			ip=$( echo $line | sed 's/.*from//; s/port.*//' ) #Get text between "from" and "port"
+			echo $ip
 			#Set the ip's counter to 0. Does not fail even if the value is not already initialized
          	IPLOG[$ip]=0
 		fi
     	#Authentication failure, increment the counter
         if [[ "$line" == *"authentication failure"* ]]; then
-            #The first 15 chars have the format of "Jan 01 00:00:00", parse them to unix time
-            timestring=$(echo "$line" | cut -c1-16)  
-            timestamp=$( date --date "$timestring" +%s )
-            if [[ $timestamp -lt $banTime ]]; then
-                #This entry is older than the ban period, skip it
-                continue
-            fi
+            
 
             #We expect RHOST to be the second to last string in the line
             linearray=($line) #Split the line on whitespace
