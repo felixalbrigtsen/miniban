@@ -7,8 +7,8 @@
 #Filenames of helper scripts
 BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
-#LOGFILE="/var/log/auth.log"
-LOGFILE="auth.log"
+LOGFILE="/var/log/auth.log"
+#LOGFILE="auth.log"
 
 INTERVAL=60 #Number of seconds between every unban test
 GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
@@ -17,7 +17,7 @@ function banCheck() {
     currentTime=$( date +%s )
     banTime=$(( $currentTime - $GRACEPERIOD ))
     
-    #Associative array / key-value pair. Key=ip addr, value=number of occurances
+    #Associative array.  Key=ip addr, value=number of occurances
     declare -A IPLOG
     #Step through the logfile from start to end
     while read line; do
@@ -25,7 +25,7 @@ function banCheck() {
     	#The first 15 chars have the format of "Jan 01 00:00:00", parse them to unix time
         timestring=$( echo "$line" | cut -c1-16 )  
         timestamp=$( date --date "$timestring" +%s )
-        if [[ $timestamp -gt $banTime ]]; then
+        if [[ $timestamp -lt $banTime ]]; then
             #This entry is older than the ban period, skip it
             continue
         fi
@@ -48,7 +48,8 @@ function banCheck() {
                 continue
             fi
             ip=${rhost#*=} #Grab everything after "="
-            
+
+            #TODO allow ipv6
             #Check that the ip variable is an IPv4 address
             if [[ ! $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
                 #Go to the next line in the logfile, skip this one
