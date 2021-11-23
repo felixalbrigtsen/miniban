@@ -7,20 +7,11 @@
 #Filenames of helper scripts
 BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
-LOGFILE="/var/log/auth.log"
-#LOGFILE="auth.log"
+#LOGFILE="/var/log/auth.log"
+LOGFILE="auth.log"
 
 INTERVAL=60 #Number of seconds between every unban test
 GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
-
-
-#Check if ip in whitelist
-
-#Ban ip
-# ./ban.sh <ip>
-
-#Run unban.sh periodically
-#watch -n $INTERVAL unbanCheck()
 
 function banCheck() {
     currentTime=$( date +%s )
@@ -32,9 +23,9 @@ function banCheck() {
     while read line; do
     
     	#The first 15 chars have the format of "Jan 01 00:00:00", parse them to unix time
-        timestring=$(echo "$line" | cut -c1-16)  
+        timestring=$( echo "$line" | cut -c1-16 )  
         timestamp=$( date --date "$timestring" +%s )
-        if [[ $timestamp -lt $banTime ]]; then
+        if [[ $timestamp -gt $banTime ]]; then
             #This entry is older than the ban period, skip it
             continue
         fi
@@ -42,8 +33,7 @@ function banCheck() {
 		#Successful logins, reset the counter
 		if [[ "$line" == *"Accepted password"* ]] ; then
 			#Line looks like: "Nov 23 15:39:04 miniban sshd[44135]: Accepted password for root from 10.24.3.54 port 53514 ssh2"
-			ip=$( echo $line | sed 's/.*from//; s/port.*//' ) #Get text between "from" and "port"
-			echo $ip
+			ip=$( echo $line | sed 's/.*from //; s/port.*//' ) #Get text between "from " and "port"
 			#Set the ip's counter to 0. Does not fail even if the value is not already initialized
          	IPLOG[$ip]=0
 		fi
@@ -51,10 +41,9 @@ function banCheck() {
         if [[ "$line" == *"authentication failure"* ]]; then
             
 
-            #We expect RHOST to be the second to last string in the line
-            linearray=($line) #Split the line on whitespace
-            rhost=${linearray[-2]} #Grab the second-to-last element
-            if [[ $rhost != "RHOST=*" ]] ; then
+            #Use awk to look at each "column" of the line. Return the line if it starts with "rhost="
+			rhost=$( echo $line | awk '{for(j=1;j<=NF;j++){if($j~/^rhost=/){print $j}}}' )
+            if [[ $rhost != "rhost="* ]] ; then
                 echo "Log parsing failed"
                 continue
             fi
@@ -64,11 +53,6 @@ function banCheck() {
             if [[ ! $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
                 #Go to the next line in the logfile, skip this one
                 continue
-            fi
-
-            #If element doesn't already exist in associative array, create it
-            if [[ ! -v IPLOG[$ip] ]]; then 
-                IPLOG[$ip]=0
             fi
 
             #First login attempt fails
