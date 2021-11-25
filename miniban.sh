@@ -80,9 +80,7 @@ function banCheck() {
     for ip in "${!IPLOG[@]}"; do 
     	echo "$ip - ${IPLOG[$ip]}" 
 		if [[ IPLOG[$ip] -ge 3 ]] ; then
-			if ./ban.sh $ip ; then
-                echo "$ip was banned!"
-            fi
+			./ban.sh $ip 
 		fi
     done;
 }

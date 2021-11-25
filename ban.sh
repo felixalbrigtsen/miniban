@@ -20,8 +20,14 @@ if grep -Fxq "$ip" "$WHITELIST" ; then
     exit 1
 fi
 
+#Check if $ip exists as a separate line in the banfile
+if grep -Fxq "$ip" "$BANFILE" ; then
+    echo "IP is already banned"
+    exit 1
+fi
+
 iptables -A INPUT -s $ip -j REJECT;
-#echo "$ip, $TIMESTAMP" >> $BANFILE;
+echo "$ip,$TIMESTAMP" >> $BANFILE;
 echo "$ip was banned at $TIMESTAMP";
 
 # echo $ip, $TIMESTAMP >> $BANFILE
