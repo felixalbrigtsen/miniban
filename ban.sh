@@ -21,7 +21,7 @@ if grep -Fxq "$ip" "$WHITELIST" ; then
 fi
 
 #Check if $ip exists as a separate line in the banfile
-if grep -Fxq "$ip" "$BANFILE" ; then
+if grep -Fq "$ip" "$BANFILE" ; then
     echo "IP is already banned"
     exit 1
 fi
