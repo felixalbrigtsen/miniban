@@ -85,8 +85,6 @@ function banCheck() {
     done;
 }
 
-banCheck
-
 ### UNBAN ##
 
 #Periodically check banned IPs in miniban.db and remove them if the ban has 
@@ -95,15 +93,21 @@ banCheck
 function unbanCheck() {
     unbanTime=$(( $( date +%s ) - $GRACEPERIOD ))
     
-    while read line; do 
-    	#Split line on the comma, ip is the first part, the rest is the timestamp
-        lineArray=(${line//,/})
-        ip=${lineArray[0]}
-        timeStamp=${lineArray[1]}
+    while IFS=, read ip timestamp ; do
+    # while read line; do 
+    # 	#Split line on the comma, ip is the first part, the rest is the timestamp
+    #     lineArray=(${line//,/})
+    #     ip=${lineArray[0]}
+    #     timeStamp=${lineArray[1]}
 
 		# If the specified IP has been banned since before unbanTime, unban it
         if [[ $timeStamp -le $unbanTime ]]; then
-            unban.sh $ip
+            ./unban.sh $ip
         fi
     done < "$BANFILE"
 }
+
+
+# Run both bancheck and unbancheck every minute using watch
+watch -n $INTERVAL banCheck
+watch -n $INTERVAL unbanCheck

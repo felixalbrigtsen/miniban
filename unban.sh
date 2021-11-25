@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Part of "Miniban project", Fall 2021, DCST1001
 BANFILE="miniban.db"
 
