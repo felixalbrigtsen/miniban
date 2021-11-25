@@ -93,7 +93,7 @@ function banCheck() {
 function unbanCheck() {
     unbanTime=$(( $( date +%s ) - $GRACEPERIOD ))
     
-    while IFS=, read ip timestamp ; do
+    while IFS=, read ip timeStamp ; do
     # while read line; do 
     # 	#Split line on the comma, ip is the first part, the rest is the timestamp
     #     lineArray=(${line//,/})
@@ -108,6 +108,9 @@ function unbanCheck() {
 }
 
 
-# Run both bancheck and unbancheck every minute using watch
-watch -n $INTERVAL banCheck
-watch -n $INTERVAL unbanCheck
+# Run both bancheck and unbancheck every minute
+while true; do
+    banCheck
+    unbanCheck
+    sleep $INTERVAL
+done
