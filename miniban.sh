@@ -4,7 +4,7 @@
 #shell), keep track of the number of failures per ip address, and when this is greater than or 
 #equal to 3, ban the ip address (see next point)
 
-#Filenames of helper scripts
+#Filenames of helper files. BANFILE and WHITELIST could be moved to a shared config file.
 BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
 LOGFILE="/var/log/auth.log"
@@ -19,7 +19,7 @@ function banCheck() {
     
     #Associative array.  Key=ip addr, value=number of occurances
     declare -A IPLOG
-    #Step through the logfile from start to end
+    #Step through the logfile from start to end. Alternatively, we could use journalctl
     while read line; do
     
     	#The first 15 chars have the format of "Jan 01 00:00:00", parse them to unix time
@@ -80,7 +80,9 @@ function banCheck() {
     for ip in "${!IPLOG[@]}"; do 
     	echo "$ip - ${IPLOG[$ip]}" 
 		if [[ IPLOG[$ip] -ge 3 ]] ; then
-			/bin/bash ban.sh $ip & >> echo "$ip was banned!"
+			if ./ban.sh $ip ; then
+                echo "$ip was banned!"
+            fi
 		fi
     done;
 }
