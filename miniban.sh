@@ -8,7 +8,6 @@
 BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
 LOGFILE="/var/log/auth.log"
-#LOGFILE="auth.log"
 
 INTERVAL=60 #Number of seconds between every unban test
 GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
@@ -94,12 +93,7 @@ function unbanCheck() {
     unbanTime=$(( $( date +%s ) - $GRACEPERIOD ))
     
     while IFS=, read ip timeStamp ; do
-    # while read line; do 
-    # 	#Split line on the comma, ip is the first part, the rest is the timestamp
-    #     lineArray=(${line//,/})
-    #     ip=${lineArray[0]}
-    #     timeStamp=${lineArray[1]}
-
+    
 		# If the specified IP has been banned since before unbanTime, unban it
         if [[ $timeStamp -le $unbanTime ]]; then
             ./unban.sh $ip
