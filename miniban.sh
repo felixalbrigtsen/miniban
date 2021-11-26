@@ -3,7 +3,7 @@
 #Part of "Miniban project", Fall 2021, DCST1001
 #Main script - watch for system authorisation events relating to SSH (secure 
 #shell), keep track of the number of failures per ip address, and when this is greater than or 
-#equal to 3, ban the ip address (see next point)
+#equal to 3, ban the ip address
 
 #Filenames of helper files. BANFILE and WHITELIST could be moved to a shared config file.
 BANFILE="miniban.db"
@@ -44,13 +44,13 @@ function unbanCheck() {
 
 
 ### BAN ###
+
+#Associative array.  Key=ip addr, value=number of occurances
 declare -A IPLOG
 
 function banCheck() {
     currentTime=$( date +%s )
     banTime=$(( $currentTime - $GRACEPERIOD ))
-    
-    #Associative array.  Key=ip addr, value=number of occurances
     
     #Step through the logfile from start to end. Alternatively, we could use journalctl
     line="$1"
@@ -93,7 +93,7 @@ function banCheck() {
             ((IPLOG[$ip]++))
         fi
 
-        #We assume that the default PAM configuration is in use, with maximum 3 attempts
+        #We assume that the default debian PAM configuration is in use, with maximum 3 attempts
         #and log lines matching the following two cases:
 
         #One additional attempt
@@ -107,7 +107,7 @@ function banCheck() {
 
     fi
 
-    #Display table
+    #Display all logged addresses
     for ip in "${!IPLOG[@]}"; do 
     	echo "$ip - ${IPLOG[$ip]}" 
 		if [[ IPLOG[$ip] -ge 3 ]] ; then
@@ -119,8 +119,8 @@ function banCheck() {
 
 
 
-prevLog=""
-# Continously poll the very last line of the ssh log, bancheck if it relates to authentication
+prevLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
+# Continously poll the very last line of the ssh log, bancheck if it relates to password authentication
 while : ; do
     newLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
     # Only do something if the line changed since last time
@@ -131,4 +131,5 @@ while : ; do
 done
 
 
+# When this script receives one of the specified exit signals, kill all child processes (Including background processes)
 trap 'kill $(jobs -pr)' SIGINT SIGTERM EXIT
