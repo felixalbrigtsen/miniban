@@ -8,10 +8,39 @@
 #Filenames of helper files. BANFILE and WHITELIST could be moved to a shared config file.
 BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
-LOGFILE="/var/log/auth.log"
 
 INTERVAL=60 #Number of seconds between every unban test
 GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
+
+
+### UNBAN ###
+
+#Periodically check banned IPs in miniban.db and remove them if the ban has 
+#expired (10 minutes). Remove the iptables rule for the IP address
+
+function unbanCheck() {
+    unbanTime=$(( $( date +%s ) - $GRACEPERIOD ))
+    
+    while IFS=, read ip timeStamp ; do
+    
+		# If the specified IP has been banned since before unbanTime, unban it
+        if [[ $timeStamp -le $unbanTime ]]; then
+            ./unban.sh $ip
+        fi
+    done < "$BANFILE"
+}
+
+
+# Run unbanCheck every $INTERVAL seconds in a background loop
+(
+    while true ; do
+        unbanCheck
+        sleep $INTERVAL
+    done
+) &
+
+
+### BAN ###
 
 function banCheck() {
     currentTime=$( date +%s )
@@ -49,12 +78,11 @@ function banCheck() {
             fi
             ip=${rhost#*=} #Grab everything after "="
 
-            #Check that the first argument is a valid and reachable IP address (IPv4 or IPv6)
-            if ! ip route get $ip > /dev/null 2>&1 ; then  
-                #Not a valid or reachable IP address, skip it
+            #Check that the ip is a valid ipv4 address
+            if [[ ! $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] ; then
+                #Invalid ip address, skip it
                 continue
             fi
-
 
             #First login attempt fails
             if [[ "$line" == *"pam_unix(sshd:auth): authentication failure;"* ]]; then
@@ -74,7 +102,7 @@ function banCheck() {
             fi
 
         fi
-    done < $LOGFILE
+    done < "$1"
 
     #Display table
     for ip in "${!IPLOG[@]}"; do 
@@ -85,27 +113,4 @@ function banCheck() {
     done;
 }
 
-### UNBAN ##
-
-#Periodically check banned IPs in miniban.db and remove them if the ban has 
-#expired (10 minutes). Remove the iptables rule for the IP address
-
-function unbanCheck() {
-    unbanTime=$(( $( date +%s ) - $GRACEPERIOD ))
-    
-    while IFS=, read ip timeStamp ; do
-    
-		# If the specified IP has been banned since before unbanTime, unban it
-        if [[ $timeStamp -le $unbanTime ]]; then
-            ./unban.sh $ip
-        fi
-    done < "$BANFILE"
-}
-
-
-# Run both bancheck and unbancheck every minute
-while true; do
-    banCheck
-    unbanCheck
-    sleep $INTERVAL
-done
+$(  journalctl -fu ssh -n0 | banCheck )
