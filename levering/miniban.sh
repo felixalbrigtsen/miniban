@@ -138,6 +138,7 @@ while : ; do
         banCheck "$newLog"
     fi
     prevLog=$newLog
+    sleep 0.01
 done
 
 
