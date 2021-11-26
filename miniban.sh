@@ -88,14 +88,14 @@ function banCheck() {
         rhost=$( echo $line | awk '{for(j=1;j<=NF;j++){if($j~/^rhost=/){print $j}}}' )
         if [[ $rhost != "rhost="* ]] ; then
             echo "Log parsing failed"
-            continue
+            return
         fi
         ip=${rhost#*=} #Grab everything after "="
 
         #Check that the ip is a valid ipv4 address
         if [[ ! $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] ; then
             #Invalid ip address, skip it
-            continue
+            return
         fi
 
         #First login attempt fails
