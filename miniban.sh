@@ -119,7 +119,7 @@ function banCheck() {
 
 
 
-prevLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
+prevLog=""
 # Continously poll the very last line of the ssh log, bancheck if it relates to authentication
 while : ; do
     newLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
@@ -131,8 +131,4 @@ while : ; do
 done
 
 
-function cleanAll() {
-    #Kill all processes where the parent ID is the PID of this script
-    pkill -P $$
-}
-trap cleanAll SIGINT
+trap 'kill $(jobs -pr)' SIGINT SIGTERM EXIT
