@@ -1,3 +1,4 @@
+#!/bin/bash
 #Part of "Miniban project", Fall 2021, DCST1001
 #Ban an IP address using iptables and add the IP address together with a ban 
 #timestamp to a persistent flat database file miniban.db (see format below)
@@ -5,6 +6,14 @@ BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
 TIMESTAMP=$(date +%s)
 ip=$1
+
+#Check that the first argument is a valid and reachable IP address (IPv4 or IPv6)
+if ! ip route get $ip > /dev/null 2>&1 ; then
+    #Go to the next line in the logfile, skip this one
+    echo "Invalid arguments."
+    echo "Usage: '$0 ip'"
+    exit 1
+fi
 
 #Check if $ip exists as a separate line in the whitelist file
 if grep -Fxq "$ip" "$WHITELIST" ; then

@@ -4,8 +4,8 @@
 BANFILE="miniban.db"
 
 ip=$1
-#Check that the first argument is an IP adress
-if [[ ! $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+#Check that the first argument is a valid and reachable IP address (IPv4 or IPv6)
+if ! ip route get $ip > /dev/null 2>&1 ; then
     #Go to the next line in the logfile, skip this one
     echo "Invalid arguments."
     echo "Usage: '$0 ip'"

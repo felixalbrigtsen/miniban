@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #Part of "Miniban project", Fall 2021, DCST1001
 #Main script - watch for system authorisation events relating to SSH (secure 
 #shell), keep track of the number of failures per ip address, and when this is greater than or 
@@ -48,12 +49,12 @@ function banCheck() {
             fi
             ip=${rhost#*=} #Grab everything after "="
 
-            #TODO allow ipv6
-            #Check that the ip variable is an IPv4 address
-            if [[ ! $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                #Go to the next line in the logfile, skip this one
+            #Check that the first argument is a valid and reachable IP address (IPv4 or IPv6)
+            if ! ip route get $ip > /dev/null 2>&1 ; then  
+                #Not a valid or reachable IP address, skip it
                 continue
             fi
+
 
             #First login attempt fails
             if [[ "$line" == *"pam_unix(sshd:auth): authentication failure;"* ]]; then
