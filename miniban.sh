@@ -12,6 +12,7 @@ WHITELIST="miniban.whitelist"
 INTERVAL=60 #Number of seconds between every unban test
 GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
 
+echo "Miniban is running"
 
 ### UNBAN ###
 
@@ -32,12 +33,12 @@ function unbanCheck() {
 
 
 # Run unbanCheck every $INTERVAL seconds in a background loop
-(
+trap "(
     while true ; do
         unbanCheck
         sleep $INTERVAL
     done
-) &
+) &" SIGINT
 
 
 ### BAN ###
@@ -108,7 +109,7 @@ function banCheck() {
     for ip in "${!IPLOG[@]}"; do 
     	echo "$ip - ${IPLOG[$ip]}" 
 		if [[ IPLOG[$ip] -ge 3 ]] ; then
-			./ban.sh $ip 
+			trap "./ban.sh $ip" SIGINT 
 		fi
     done;
 }
@@ -116,12 +117,12 @@ function banCheck() {
 
 
 prevLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
-# Continously loop through the very last line of the ssh log, bancheck if it relates to authentication
+# Continously poll the very last line of the ssh log, bancheck if it relates to authentication
 while : ; do
     newLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
     # Only do something if the line changed since last time
     if [[ "$prevLog" != "$newLog" ]] ; then
-        banCheck "$newLog"
+        trap banCheck "$newLog" SIGINT
     fi
     prevLog=$newLog
 done

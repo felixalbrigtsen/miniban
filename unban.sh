@@ -12,6 +12,8 @@ if [[ ! $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] ; then
     exit 1
 fi
 
+echo "Unbanning $ip"
+
 #Errors from iptables is automatically thrown to stdout when run manually
 #Print success message to screen if iptables exits with 0 
 if iptables -D INPUT -s $ip -j REJECT ; then
