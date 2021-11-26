@@ -8,6 +8,7 @@
 #Filenames of helper files. BANFILE and WHITELIST could be moved to a shared config file.
 BANFILE="miniban.db"
 WHITELIST="miniban.whitelist"
+LOCKFILE="miniban.db.lck"
 
 INTERVAL=60 #Number of seconds between every unban test
 GRACEPERIOD=$(( 60 * 10 )) #Do not count failed logins more than 10 minutes old
@@ -22,23 +23,24 @@ echo "Miniban is running"
 function unbanCheck() {
     unbanTime=$(( $( date +%s ) - $GRACEPERIOD ))
     
+    #Read comma-separated values from the banfile
     while IFS=, read ip timeStamp ; do
     
 		# If the specified IP has been banned since before unbanTime, unban it
         if [[ $timeStamp -le $unbanTime ]]; then
-            ./unban.sh $ip
+            flock $BANFILE ./unban.sh $ip
         fi
     done < "$BANFILE"
 }
 
 
 # Run unbanCheck every $INTERVAL seconds in a background loop
-trap "(
+(
     while true ; do
         unbanCheck
         sleep $INTERVAL
     done
-) &" SIGINT
+) &
 
 
 ### BAN ###
@@ -109,7 +111,8 @@ function banCheck() {
     for ip in "${!IPLOG[@]}"; do 
     	echo "$ip - ${IPLOG[$ip]}" 
 		if [[ IPLOG[$ip] -ge 3 ]] ; then
-			trap "./ban.sh $ip" SIGINT 
+            #Lock file to avoid write conflicts
+			flock $BANFILE ./ban.sh $ip
 		fi
     done;
 }
@@ -122,7 +125,14 @@ while : ; do
     newLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
     # Only do something if the line changed since last time
     if [[ "$prevLog" != "$newLog" ]] ; then
-        trap "banCheck \"$newLog\"" SIGINT
+        banCheck "$newLog"
     fi
     prevLog=$newLog
 done
+
+
+function cleanAll() {
+    #Kill all processes where the parent ID is the PID of this script
+    pkill -P $$
+}
+trap cleanAll SIGINT
