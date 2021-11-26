@@ -41,15 +41,16 @@ function unbanCheck() {
 
 
 ### BAN ###
+declare -A IPLOG
 
 function banCheck() {
     currentTime=$( date +%s )
     banTime=$(( $currentTime - $GRACEPERIOD ))
     
     #Associative array.  Key=ip addr, value=number of occurances
-    declare -A IPLOG
+    
     #Step through the logfile from start to end. Alternatively, we could use journalctl
-    line=$1
+    line="$1"
     
     #The first 15 chars have the format of "Jan 01 00:00:00", parse them to unix time
     timestring=$( echo "$line" | cut -c1-16 )  
@@ -118,8 +119,9 @@ prevLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepte
 # Continously loop through the very last line of the ssh log, bancheck if it relates to authentication
 while : ; do
     newLog=$( journalctl -u ssh -n 1 | grep -e "authentication failure" -e "Accepted password" )
-    if [[ $prevLog != $newLog ]] ; then
-        banCheck $newLog
+    # Only do something if the line changed since last time
+    if [[ "$prevLog" != "$newLog" ]] ; then
+        banCheck "$newLog"
     fi
     prevLog=$newLog
 done
